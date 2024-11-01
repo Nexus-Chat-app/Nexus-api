@@ -1,0 +1,4 @@
+/* 
+    This file is responsible for handling all the business logic of the notification module.
+    It contains all the methods that are required to perform CRUD operations on the notifications.
+*/

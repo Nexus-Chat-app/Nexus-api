@@ -1,0 +1,3 @@
+/* 
+    MongoDB data access for notifications
+*/

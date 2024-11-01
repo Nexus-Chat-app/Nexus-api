@@ -1,0 +1,3 @@
+/* 
+    DTOs for handeling notifications payloads
+*/

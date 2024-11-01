@@ -1,0 +1,3 @@
+/* 
+    Jwt Settings for authentication and authorization
+*/

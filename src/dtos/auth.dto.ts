@@ -1,0 +1,4 @@
+/* 
+    DTOs are used to define the structure of the data that will be sent to the server.
+    This is a DTO for the auth service. It defines the structure of the data that will be sent to the server.
+*/

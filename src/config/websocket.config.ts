@@ -1,0 +1,3 @@
+/* 
+    WebSocket configuration and connection options
+*/

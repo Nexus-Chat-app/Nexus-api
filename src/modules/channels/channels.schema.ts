@@ -1,0 +1,3 @@
+/* 
+    MongoDB Schema for Channels
+*/

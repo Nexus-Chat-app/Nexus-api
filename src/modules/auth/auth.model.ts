@@ -1,0 +1,3 @@
+/* 
+    MongoDB model for user authentication 
+*/

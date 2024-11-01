@@ -1,0 +1,3 @@
+/* 
+    This file contains the MongoDB Model for the notifications Module
+*/

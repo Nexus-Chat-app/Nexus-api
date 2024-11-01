@@ -1,0 +1,3 @@
+/* 
+    Type Definitions for Chat Module 
+*/

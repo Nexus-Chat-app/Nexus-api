@@ -1,0 +1,3 @@
+/* 
+    Group and private channels management
+*/

@@ -1,0 +1,3 @@
+/* 
+    This is a DTO for the chat service. It is used to validate the data that is being sent to the chat service.
+*/

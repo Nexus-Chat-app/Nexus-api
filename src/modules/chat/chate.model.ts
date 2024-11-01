@@ -1,0 +1,3 @@
+/* 
+    Model for chat message in MongoDB 
+*/

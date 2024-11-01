@@ -1,0 +1,3 @@
+/* 
+    Type definitions for status module
+*/
