@@ -19,3 +19,5 @@ export class Channel extends Document {
     members: Types.ObjectId[];
 
 }
+
+export const ChannelSchema = SchemaFactory.createForClass(Channel);
