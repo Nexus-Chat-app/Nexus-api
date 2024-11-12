@@ -22,3 +22,5 @@ export class User extends Document {
   isOnline : boolean;
 
 } 
+
+export const UserSchema = SchemaFactory.createForClass(User);

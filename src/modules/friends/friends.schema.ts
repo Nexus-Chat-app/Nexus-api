@@ -1,3 +1,0 @@
-/* 
-    This file will contain the schema for the friends module 
-*/
