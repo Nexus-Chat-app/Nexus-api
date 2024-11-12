@@ -1,3 +1,0 @@
-/* 
-    MongoDB schema for user authentication details
-*/
