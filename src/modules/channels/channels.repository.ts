@@ -1,3 +1,0 @@
-/* 
-    MongoDB data access for friends relationships 
-*/

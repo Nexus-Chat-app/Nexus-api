@@ -1,3 +1,0 @@
-/* 
-    Type definitions for auth module 
-*/

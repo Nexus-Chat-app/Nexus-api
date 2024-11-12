@@ -1,3 +1,0 @@
-/* 
-    MongoDB interactions for user authentication data 
-*/
