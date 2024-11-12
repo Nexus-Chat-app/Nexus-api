@@ -1,3 +1,0 @@
-/* 
-    MongoDB Schema for Notifications
-*/
