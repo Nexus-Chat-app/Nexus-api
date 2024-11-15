@@ -16,7 +16,7 @@ export class ChatService {
     content: string,
     sender: Types.ObjectId,
     receiver?: Types.ObjectId,
-    channel?: string,
+    channelId?: string,
   }) { 
     const chat = new this.chatModel(data);
     return chat.save();
