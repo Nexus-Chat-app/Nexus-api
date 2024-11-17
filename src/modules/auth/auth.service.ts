@@ -77,20 +77,52 @@ export class AuthService {
   }
   
   
-  async loginUser(credentials: {
-    identifier: string;
-    password: string;
-  }): Promise<AxiosResponse> {
+  async loginUser(loginData: { identifier: string; password: string; rememberMe: boolean }) {
     try {
+      // Send login request to the Auth service
+      console.log('Sending login request to Auth Service');
       const response = await firstValueFrom(
-        this.httpService.post(`${this.authServiceUrl}/login`, credentials),
+        this.httpService.post(`${process.env.AUTH_SERVICE_URL}/login`, loginData)
       );
-      return response;
+
+      if (response.status === 200) {
+        // If device is trusted, return success response with user data and tokens
+        return response.data;
+      } else {
+        // If device is not trusted, return message indicating OTP has been sent
+        return {
+          message: 'OTP sent to your email. Please verify to complete login.',
+          user: response.data.user,  // Include user data to show username/email
+        };
+      }
     } catch (error) {
-      throw new HttpException(
-        `Error logging in user: ${error.message}`,
-        HttpStatus.BAD_REQUEST,
+      console.error('Error during login request:', error.message);
+      throw new Error('Authentication failed');
+    }
+  }
+
+  // Method to verify OTP (sends OTP data to auth service)
+  async verifyOtp(otpData: { identifier: string; otp: string, rememberDevice: boolean }) {
+    try {
+      // Send OTP verification request to the Auth service
+      const response = await firstValueFrom(
+        this.httpService.post(`${process.env.AUTH_SERVICE_URL}/verify-otp`, otpData)
       );
+
+      if (response.status === 200) {
+        // If OTP is valid, return the success message and user info
+        return {
+          message: 'OTP verified successfully. Login successful.',
+          user: response.data.user,  
+          accessToken: response.data.accessToken,
+        };
+      } else {
+        // If OTP verification fails
+        return { message: 'OTP verification failed', error: response.data.error };
+      }
+    } catch (error) {
+      console.error('Error during OTP verification:', error.message);
+      throw new Error('OTP verification failed');
     }
   }
 
@@ -137,5 +169,21 @@ export class AuthService {
       throw new Error(`Error syncing user to Chat DB: ${error.message}`);
     }
   }
-  
+
+  // Get User Online
+  async setUserOnlineStatus(userId: string): Promise<any> {
+    try {
+      const user = await this.userModel.findById(userId);
+      if ( !user ) {
+        throw new Error('User not found');
+      }
+      user.isOnline = true;
+      await user.save();
+    } catch (err) {
+      throw new HttpException(
+        `Error getting user online status: ${err.message}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
 }

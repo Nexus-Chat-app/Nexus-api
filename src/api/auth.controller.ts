@@ -33,13 +33,38 @@ export class AuthController {
   //Login a user
   @Post('login')
   async loginUser(
-    @Body() credentials: { identifier: string; password: string },
+    @Body()
+    credentials: {
+      identifier: string;
+      password: string;
+      rememberMe: boolean;
+    },
   ) {
     try {
       const result = await this.authService.loginUser(credentials);
-      return { message: 'User logged in successfully', user: result };
+      return result;
     } catch (error) {
       return { message: 'Error logging in user', error: error.message };
+    }
+  }
+
+  //Login OTP
+  @Post('verify-otp')
+  async verifyOtp(
+    @Body()
+    otpData: {
+      identifier: string;
+      otp: string;
+      rememberDevice: boolean;
+    },
+  ) {
+    try {
+      // Pass the OTP verification request to the service
+      const response = await this.authService.verifyOtp(otpData);
+      return response;
+    } catch (error) {
+      console.error('OTP verification failed:', error.message);
+      return { message: 'OTP verification failed', error: error.message };
     }
   }
 }
