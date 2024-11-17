@@ -4,6 +4,7 @@ import { DatabaseConfig } from '../config/database.config';
 import { UserModule } from './user/user.module';
 import { ChannelModule } from './channel/channel.module';
 import { ChatModule } from './chat/chat.module';
+import { RabbitMQEvents } from 'src/events/rabbitmq.events';
 
 
 @Module({
@@ -15,6 +16,7 @@ import { ChatModule } from './chat/chat.module';
     ChatModule,
     
   ],
+  providers: [RabbitMQEvents],
 })
 
 export class AppModule {}
