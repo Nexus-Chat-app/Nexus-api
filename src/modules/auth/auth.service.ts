@@ -154,7 +154,6 @@ export class AuthService {
       email: user.email,
       phone: user.phoneNumber,
       password: hashedPassword,
-      roles: user.roles.map(role => String(role)), // Ensure roles are strings
     };
   
   
@@ -184,6 +183,31 @@ export class AuthService {
         `Error getting user online status: ${err.message}`,
         HttpStatus.BAD_REQUEST,
       );
+    }
+  }
+
+  async requestPasswordReset(email: string) {
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post(`${this.authServiceUrl}/request-password-reset`, { email })
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error requesting password reset:', error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || 'Failed to request password reset');
+    }
+  }
+  
+
+  async resetPassword(resetPasswordData: { token: string; newPassword: string; confirmNewPassword: string }) {
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post(`${this.authServiceUrl}/reset-password`, resetPasswordData)
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error resetting password:', error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || 'Failed to reset password');
     }
   }
 }

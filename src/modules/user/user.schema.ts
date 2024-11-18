@@ -21,8 +21,6 @@ export class User extends Document {
   @Prop({ default: false })
   isOnline: boolean;
 
-  @Prop({ default: ['User'] })
-  roles: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

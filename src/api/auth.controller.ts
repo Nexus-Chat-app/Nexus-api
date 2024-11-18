@@ -67,4 +67,23 @@ export class AuthController {
       return { message: 'OTP verification failed', error: error.message };
     }
   }
+
+  //Request Reset Link
+  @Post('forgot-password')
+  async requestPasswordReset(@Body() body: { email: string }) {
+    return this.authService.requestPasswordReset(body.email);
+  }
+
+  //Reset Password
+  @Post('reset-password')
+  async resetPassword(
+    @Body()
+    body: {
+      token: string;
+      newPassword: string;
+      confirmNewPassword: string;
+    },
+  ) {
+    return this.authService.resetPassword(body);
+  }
 }
