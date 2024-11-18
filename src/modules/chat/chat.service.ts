@@ -12,14 +12,16 @@ export class ChatService {
     @InjectModel(Chat.name) private chatModel: Model<ChatDocument>,
   ) {}
 
-  async createChat(data: {
-    content: string,
-    sender: Types.ObjectId,
-    receiver?: Types.ObjectId,
-    channelId?: Types.ObjectId,
-  }) { 
-    const chat = new this.chatModel(data);
-    return chat.save();
+  async createChat(data: { content: string; sender: string; receiver?: string; channelId?: string }) {
+    const newChat = new this.chatModel({
+      content: data.content,
+      sender: new Types.ObjectId(data.sender), 
+      receiver: data.receiver ? new Types.ObjectId(data.receiver) : null,
+      channelId: data.channelId ? new Types.ObjectId(data.channelId) : null,
+      isRead: false,  
+    });
+
+    return await newChat.save();
   }
 
   async getChatsByChannel(channelId: string){
