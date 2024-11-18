@@ -4,6 +4,7 @@ import { DatabaseConfig } from '../config/database.config';
 import { UserModule } from './user/user.module';
 import { ChannelModule } from './channel/channel.module';
 import { ChatModule } from './chat/chat.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -13,7 +14,7 @@ import { ChatModule } from './chat/chat.module';
     UserModule,
     ChannelModule,
     ChatModule,
-    
+    AuthModule,
   ],
 })
 
