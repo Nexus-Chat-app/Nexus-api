@@ -149,18 +149,20 @@ export class AuthService {
       ? await bcrypt.hash(user.password, 10)
       : 'hashed-placeholder';
   
+    console.log('Syncing user to Chat Service database:', user);
+  
     const mappedUser = {
+      _id: user.id,
       username: user.username,
       email: user.email,
       phone: user.phoneNumber,
       password: hashedPassword,
     };
   
-  
     try {
       const newUser = new this.userModel(mappedUser);
-      await newUser.validate(); // Validate before saving
-      const result = await newUser.save();
+      await newUser.validate(); 
+      const result = await newUser.save(); 
       console.log('User synced to Chat Service database:', result);
       return result;
     } catch (error) {
@@ -168,6 +170,7 @@ export class AuthService {
       throw new Error(`Error syncing user to Chat DB: ${error.message}`);
     }
   }
+  
 
   // Get User Online
   async setUserOnlineStatus(userId: string): Promise<any> {

@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ChatService } from './chat.service';
 import { UnauthorizedException } from '@nestjs/common';
 
-@WebSocketGateway({ cors: true })
+@WebSocketGateway({ cors: true})
 export class ChatGateway {
   @WebSocketServer()
   server: Server;
@@ -40,40 +40,38 @@ export class ChatGateway {
 
   // Handle disconnection
   handleDisconnect(socket: Socket) {
-    console.log(`User disconnected: ${socket.data.user?.username || 'unknown'}`);
+    console.log(
+      `User disconnected: ${socket.data.user?.username || 'unknown'}`,
+    );
   }
 
   // Handle sending messages
   @SubscribeMessage('sendMessage')
   async handleSendMessage(
     @MessageBody()
-    data: { content: string; receiver?: string; channelId?: string },
-    @ConnectedSocket() socket: Socket,
+    data: { content: string; sender: string; receiver?: string; channelId?: string },
+    @ConnectedSocket() client: Socket,
   ) {
-    const user = socket.data.user;
+    // Log the incoming message data
+    console.log(`New message from ${client.data.user.username}: ${data.content}`);
+  
+    // Call the service method to create a chat and handle real-time notification
+    const chat = await this.chatService.createChat(data, this.server);
+  
+    // Return the chat object (you can also broadcast it here if needed)
+    return chat;
+  }
 
-    if (!user) {
-      throw new UnauthorizedException('User not authenticated');
-    }
-
-    // Save the message to the database
-    const chatMessage = await this.chatService.createChat({
-      content: data.content,
-      sender: user._id,
-      receiver: data.receiver,
-      channelId: data.channelId,
-    });
-
-    // Emit the message to the appropriate recipient(s)
-    if (data.channelId) {
-      this.server.to(data.channelId).emit('newMessage', chatMessage);
-    } else if (data.receiver) {
-      this.server.to(data.receiver).emit('newMessage', chatMessage);
-    } else {
-      this.server.emit('newMessage', chatMessage); // Fallback: broadcast to all clients
-    }
-
-    return chatMessage;
+  @SubscribeMessage('joinChannel')
+  async handleJoinChannel(
+    @MessageBody() data: { channelId: string },
+    @ConnectedSocket() client: Socket,
+  ) {
+    console.log(`${client.data.user.username} joined channel ${data.channelId}`);
+    client.join(data.channelId); // Join the room
+    this.server
+      .to(data.channelId)
+      .emit('userJoined', { userId: client.data.userId });
   }
 
   // Handle retrieving messages by channel
