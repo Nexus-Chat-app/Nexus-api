@@ -57,7 +57,7 @@ jobs:
         run: npm run
 
       - name: Run Tests
-        run: npx jest --ci --reporters=default --reporters=jest-stare
+        run: npx jest --ci --config=jest.config.ts --reporters=default --reporters=jest-stare
 
   # Step 3: Deploy Docker container to server
   deploy:
