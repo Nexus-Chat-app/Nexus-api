@@ -53,11 +53,11 @@ export class ChatService {
     // After saving, emit the real-time notification via WebSocket
     if (data.channelId) {
       // If the message is for a channel, broadcast to all users in the channel
-      server.to(data.channelId).emit('newMessage', savedChat);
+      server.to(data.channelId).emit('newChannelMessage', savedChat);
       console.log(`New message in channel ${data.channelId}: ${data.content}`);
     } else if (data.receiver) {
       // If the message is to a specific receiver, emit to both the sender and the receiver
-      server.to(data.receiver).to(data.sender).emit('newMessage', savedChat);
+      server.to(data.receiver).emit('newPrivateMessage', savedChat);
       console.log(`New message from ${sender.username} to ${data.receiver}: ${data.content}`);
     }
 

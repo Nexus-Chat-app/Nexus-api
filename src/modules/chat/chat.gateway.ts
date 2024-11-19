@@ -10,7 +10,14 @@ import { JwtService } from '@nestjs/jwt';
 import { ChatService } from './chat.service';
 import { UnauthorizedException } from '@nestjs/common';
 
-@WebSocketGateway({ cors: true})
+@WebSocketGateway({
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Authorization'],
+    credentials: true,
+  },
+})
 export class ChatGateway {
   @WebSocketServer()
   server: Server;
@@ -24,17 +31,19 @@ export class ChatGateway {
   async handleConnection(socket: Socket) {
     try {
       const token = socket.handshake.headers.authorization?.split(' ')[1];
-
       if (!token) {
         throw new UnauthorizedException('Token not provided');
       }
 
       const decoded = this.jwtService.verify(token);
-      socket.data.user = decoded; // Attach the user to the socket
+      socket.data.user = decoded;
       console.log(`User connected: ${decoded.username}`);
+
+      // Emit a connection success message to the client
+      socket.emit('connected', { message: `Welcome, ${decoded.username}!` });
     } catch (error) {
       console.error('Connection failed:', error.message);
-      socket.disconnect();
+      socket.disconnect(); // Disconnect on failure
     }
   }
 
@@ -49,16 +58,41 @@ export class ChatGateway {
   @SubscribeMessage('sendMessage')
   async handleSendMessage(
     @MessageBody()
-    data: { content: string; sender: string; receiver?: string; channelId?: string },
+    data: {
+      content: string;
+      sender: string;
+      receiver?: string;
+      channelId?: string;
+    },
     @ConnectedSocket() client: Socket,
   ) {
-    // Log the incoming message data
-    console.log(`New message from ${client.data.user.username}: ${data.content}`);
-  
-    // Call the service method to create a chat and handle real-time notification
+    console.log(
+      `New message from ${client.data.user.username}: ${data.content}`,
+    );
+
+    // Call the service method to create a chat
     const chat = await this.chatService.createChat(data, this.server);
-  
-    // Return the chat object (you can also broadcast it here if needed)
+
+    // Broadcast the message
+    if (data.receiver) {
+      // If it is a private message
+      this.server.to(data.receiver).emit('newPrivateMessage', {
+        content: data.content,
+        sender: client.data.user.username,
+        timestamp: new Date(),
+      });
+    }
+
+    if (data.channelId) {
+      // If it's a channel message
+      this.server.to(data.channelId).emit('newChannelMessage', {
+        content: data.content,
+        sender: client.data.user.username,
+        channelId: data.channelId,
+        timestamp: new Date(),
+      });
+    }
+
     return chat;
   }
 
@@ -67,13 +101,18 @@ export class ChatGateway {
     @MessageBody() data: { channelId: string },
     @ConnectedSocket() client: Socket,
   ) {
-    console.log(`${client.data.user.username} joined channel ${data.channelId}`);
-    client.join(data.channelId); // Join the room
-    this.server
-      .to(data.channelId)
-      .emit('userJoined', { userId: client.data.userId });
-  }
+    console.log(
+      `${client.data.user.username} joined channel ${data.channelId}`,
+    );
+    client.join(data.channelId);
 
+    // Notify other users in the channel
+    this.server.to(data.channelId).emit('userJoined', {
+      username: client.data.user.username,
+      userId: client.data.user._id,
+      message: `${client.data.user.username} has joined the channel.`,
+    });
+  }
   // Handle retrieving messages by channel
   @SubscribeMessage('getChannelMessages')
   async handleGetChannelMessages(
@@ -86,8 +125,13 @@ export class ChatGateway {
       throw new UnauthorizedException('User not authenticated');
     }
 
-    const messages = await this.chatService.getChatsByChannel(data.channelId);
-    return messages;
+    try {
+      const messages = await this.chatService.getChatsByChannel(data.channelId);
+      return messages;
+    } catch (error) {
+      console.error('Error retrieving channel messages:', error);
+      throw new Error('Unable to fetch messages');
+    }
   }
 
   // Handle retrieving messages between two users
