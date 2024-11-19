@@ -53,10 +53,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: List all npm scripts
+      - name: List all npm scripts (Debugging Step)
         run: npm run
 
-      - name: Run Tests
+      - name: Run Tests with Jest
         run: npx jest --ci --config=jest.config.ts --reporters=default --reporters=jest-stare
 
   # Step 3: Deploy Docker container to server
