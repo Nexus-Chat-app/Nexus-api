@@ -51,7 +51,7 @@ jobs:
         run: npm install
 
       - name: Run Tests
-        run: npx jest --ci
+        run: npm run test:ci
 
   # Step 3: Deploy Docker container to server
   deploy:
