@@ -1,11 +1,11 @@
 {
-  "numFailedTestSuites": 5,
+  "numFailedTestSuites": 0,
   "numFailedTests": 0,
   "numPassedTestSuites": 0,
   "numPassedTests": 0,
   "numPendingTestSuites": 0,
   "numPendingTests": 0,
-  "numRuntimeErrorTestSuites": 5,
+  "numRuntimeErrorTestSuites": 0,
   "numTodoTests": 0,
   "numTotalTestSuites": 5,
   "numTotalTests": 0,
@@ -26,161 +26,8 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1732036008663,
+  "startTime": 1732036218347,
   "success": false,
-  "testResults": [
-    {
-      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 0,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 0,
-        "runtime": 0,
-        "slow": false,
-        "start": 0
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testExecError": {
-        "message": "Your test suite must contain at least one test.",
-        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
-      },
-      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\integration\\message.integration.spec.ts",
-      "testResults": []
-    },
-    {
-      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 0,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 0,
-        "runtime": 0,
-        "slow": false,
-        "start": 0
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testExecError": {
-        "message": "Your test suite must contain at least one test.",
-        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
-      },
-      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\unit\\auth.service.spec.ts",
-      "testResults": []
-    },
-    {
-      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 0,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 0,
-        "runtime": 0,
-        "slow": false,
-        "start": 0
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testExecError": {
-        "message": "Your test suite must contain at least one test.",
-        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
-      },
-      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\unit\\message.service.spec.ts",
-      "testResults": []
-    },
-    {
-      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 0,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 0,
-        "runtime": 0,
-        "slow": false,
-        "start": 0
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testExecError": {
-        "message": "Your test suite must contain at least one test.",
-        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
-      },
-      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\integration\\auth.integration.spec.ts",
-      "testResults": []
-    },
-    {
-      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    \u001b[96msrc/tests/unit/app.controller.spec.ts\u001b[0m:\u001b[93m2\u001b[0m:\u001b[93m31\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2307: \u001b[0mCannot find module './api/app.controller' or its corresponding type declarations.\n\n    \u001b[7m2\u001b[0m import { AppController } from './api/app.controller';\n    \u001b[7m \u001b[0m \u001b[91m                              ~~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n    \u001b[96msrc/tests/unit/app.controller.spec.ts\u001b[0m:\u001b[93m3\u001b[0m:\u001b[93m28\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2307: \u001b[0mCannot find module './app.service' or its corresponding type declarations.\n\n    \u001b[7m3\u001b[0m import { AppService } from './app.service';\n    \u001b[7m \u001b[0m \u001b[91m                           ~~~~~~~~~~~~~~~\u001b[0m\n",
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 0,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 0,
-        "runtime": 0,
-        "slow": false,
-        "start": 0
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testExecError": "\u001b[96msrc/tests/unit/app.controller.spec.ts\u001b[0m:\u001b[93m2\u001b[0m:\u001b[93m31\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2307: \u001b[0mCannot find module './api/app.controller' or its corresponding type declarations.\n\n\u001b[7m2\u001b[0m import { AppController } from './api/app.controller';\n\u001b[7m \u001b[0m \u001b[91m                              ~~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n\u001b[96msrc/tests/unit/app.controller.spec.ts\u001b[0m:\u001b[93m3\u001b[0m:\u001b[93m28\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2307: \u001b[0mCannot find module './app.service' or its corresponding type declarations.\n\n\u001b[7m3\u001b[0m import { AppService } from './app.service';\n\u001b[7m \u001b[0m \u001b[91m                           ~~~~~~~~~~~~~~~\u001b[0m",
-      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\unit\\app.controller.spec.ts",
-      "testResults": []
-    }
-  ],
+  "testResults": [],
   "wasInterrupted": false
 }
