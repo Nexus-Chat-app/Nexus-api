@@ -9,7 +9,6 @@ on:
       - master
 
 jobs:
-  # Step 1: Build Docker image and push to Docker Hub
   build-and-push:
     name: Build Docker Image and Push to Docker Hub
     runs-on: ubuntu-latest
@@ -33,7 +32,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/nexus-api:latest
 
-  # Step 2: Run Tests
   run-tests:
     name: Run Tests on Nexus API
     runs-on: ubuntu-latest
@@ -53,23 +51,34 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: List all npm scripts (Debugging Step)
-        run: npm run
-
       - name: Run Tests with Jest
-        run: npx jest --ci --config=jest.config.ts --reporters=default --reporters=jest-stare
+        run: |
+          npx jest --ci --config=jest.config.ts --reporters=default --reporters=jest-stare
 
-  # Step 3: Deploy Docker container to server
   deploy:
     name: Deploy Docker Container to Server
     runs-on: ubuntu-latest
-    # needs: run-tests
+    needs: run-tests
     steps:
-      - name: SSH to Server and Deploy
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.10.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy via SSH
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
+          set -e
+          echo "Pulling latest Docker image..."
           docker pull ${{ secrets.DOCKER_USERNAME }}/nexus-api:latest
+          echo "Stopping existing container if running..."
           docker stop nexus-api || true
+          echo "Removing old container if exists..."
           docker rm nexus-api || true
+          echo "Running new container..."
           docker run -d --name nexus-api -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/nexus-api:latest
+          echo "Deployment successful!"
           EOF
