@@ -4,63 +4,109 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { Friend, FriendSchema } from "./friend.schema";
 import mongoose, { Model, ObjectId, Types } from "mongoose";
-import { Injectable, Scope } from "@nestjs/common";
+import { Injectable, Scope, NotFoundException, BadRequestException } from "@nestjs/common";
 import { FriendDto } from 'src/dtos/friends.dto';
 import { User } from "../user/user.schema";
-import { json } from "stream/consumers";
 
 
 @Injectable()
 export class FriendService {
-    constructor(@InjectModel(Friend.name) private friendmodel: Model<Friend>) { }
+    constructor(@InjectModel(Friend.name) private friendmodel: Model<Friend> , @InjectModel("User") private readonly userModel: Model<User>,) { }
 
     async AddFriend(friendData: FriendDto): Promise<Friend> {
-        const Friends = await this.friendmodel.find({requester: friendData.requester , recipient: friendData.requester });
-        if(!Friends){
+        try {
+            const existingFriends = await this.friendmodel.find({
+                $and: [
+                    { requester: friendData.requester },
+                    { recipient: friendData.recipient },
+                    {status: "pending"}
+                ]
+            });
+
+            if (existingFriends && existingFriends.length > 0) {
+                throw new BadRequestException('Friend request already exists.');
+            }
+
             const friend = new this.friendmodel(friendData);
             return await friend.save();
-        }else{
-            return
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    // async FindUser(username: string): Promise<User[]> {
+    //     try {
+    //         const users = await this.userModel.find({
+    //             username: { $regex: username, $options: 'i' }
+    //         });
+    //         if (!users || users.length === 0) {
+    //             throw new NotFoundException('No users found.');
+    //         }
+    //         return users;
+    //     } catch (error) {
+    //         throw new BadRequestException(error.message);
+    //     }
+    // }
+
+    async FindFriend(friendData: FriendDto): Promise<Friend> {
+        try {
+            const friend = await this.friendmodel.findOne(friendData);
+            if (!friend) {
+                throw new NotFoundException('Friend not found.');
+            }
+            return friend;
+        } catch (error) {
+            throw new BadRequestException(error.message);
         }
     }
 
     async GetAllFriends(UserId: string): Promise<Friend[]> {
         try {
-            const FriendRequests = await this.friendmodel.find({status: "accepted" , recipient: UserId });
-            if (!FriendRequests) {
-                return []
+            const friendRequests = await this.friendmodel.find({ status: "accepted", recipient: UserId });
+            if (!friendRequests || friendRequests.length === 0) {
+                throw new NotFoundException('No friends found for this user.');
             }
-            return FriendRequests
-        } catch (Error) {
-            throw new Error
+            return friendRequests;
+        } catch (error) {
+            throw new BadRequestException('Error fetching friends: ' + error.message);
         }
     }
 
     async AllFriendRequests(UserId: string): Promise<Friend[]> {
         try {
-            const FriendRequests = await this.friendmodel.find({status: "pending" , recipient: UserId });
-            if (!FriendRequests) {
-                return []
+            const friendRequests = await this.friendmodel.find({
+                $and: [
+                    { status: "pending" },
+                    { recipient: UserId },
+                ]
+            });
+            if (!friendRequests || friendRequests.length === 0) {
+                throw new NotFoundException('No friend requests found for this user.');
             }
-            return FriendRequests
-        } catch (Error) {
-            throw new Error
+            return friendRequests;
+        } catch (error) {
+            throw new BadRequestException(error.message);
         }
     }
 
-    async AcceptOrRefuseFriendRequests(UserId : string , Data  ) : Promise<Friend>{
+    async AcceptOrRefuseFriendRequests(UserId: string, Data: { _id: string; status: string }): Promise<Friend> {
         try {
-            // console.log(UserId , Data.requester);
-            const FriendRequest =  await this.friendmodel.find({status : "pending" , requester: Data.requester  , recipient: UserId });
-            if(FriendRequest){
-                console.log(FriendRequest[0]);
-                FriendRequest[0].status = Data.status
-                return await FriendRequest[0].save()
+            const friendRequest = await this.friendmodel.findOne({
+                $and: [
+                    {_id: Data._id},
+                    {recipient: UserId }
+                ]
+            });
+            if (!friendRequest) {
+                throw new NotFoundException('Friend request not found or already processed.');
+            }else if (friendRequest.status === "rejected" || friendRequest.status === "accepted" ){
+                throw new Error("Friend request is already "+friendRequest.status );
             }else{
-                return
+                friendRequest.status = Data.status;
+                return await friendRequest.save();
             }
         } catch (error) {
-            return error
+            throw new Error(error.message);
         }
     }
 }

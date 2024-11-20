@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { ChannelModule } from './channel/channel.module';
 import { ChatModule } from './chat/chat.module';
 import { FriendModule } from './friend/friend.module';
+import { NotificationModule } from './notification/notification.module';
 
 
 @Module({
@@ -15,6 +16,7 @@ import { FriendModule } from './friend/friend.module';
     ChannelModule,
     ChatModule,
     FriendModule,
+    NotificationModule
   ],
 })
 
