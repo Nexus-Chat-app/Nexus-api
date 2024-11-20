@@ -1,0 +1,202 @@
+{
+  "numFailedTestSuites": 4,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 1,
+  "numPassedTests": 1,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 4,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 5,
+  "numTotalTests": 1,
+  "openHandles": [],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1732091350549,
+  "success": false,
+  "testResults": [
+    {
+      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 0,
+        "runtime": 0,
+        "slow": false,
+        "start": 0
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testExecError": {
+        "message": "Your test suite must contain at least one test.",
+        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+      },
+      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\unit\\auth.service.spec.ts",
+      "testResults": []
+    },
+    {
+      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 0,
+        "runtime": 0,
+        "slow": false,
+        "start": 0
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testExecError": {
+        "message": "Your test suite must contain at least one test.",
+        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+      },
+      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\integration\\auth.integration.spec.ts",
+      "testResults": []
+    },
+    {
+      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 0,
+        "runtime": 0,
+        "slow": false,
+        "start": 0
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testExecError": {
+        "message": "Your test suite must contain at least one test.",
+        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+      },
+      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\integration\\message.integration.spec.ts",
+      "testResults": []
+    },
+    {
+      "failureMessage": "  \u001b[1m● \u001b[22mTest suite failed to run\n\n    Your test suite must contain at least one test.\n\n      \u001b[2mat onResult (\u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:133:18)\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/@jest/core/build/TestScheduler.js\u001b[2m:254:19\u001b[22m\n      \u001b[2mat \u001b[22m../node_modules/emittery/index.js\u001b[2m:363:13\u001b[22m\n          at Array.map (<anonymous>)\n      \u001b[2mat Emittery.emit (\u001b[22m../node_modules/emittery/index.js\u001b[2m:361:23)\u001b[22m\n",
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 0,
+        "runtime": 0,
+        "slow": false,
+        "start": 0
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testExecError": {
+        "message": "Your test suite must contain at least one test.",
+        "stack": "Error: Your test suite must contain at least one test.\n    at onResult (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:133:18)\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\@jest\\core\\build\\TestScheduler.js:254:19\n    at C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:363:13\n    at Array.map (<anonymous>)\n    at Emittery.emit (C:\\Users\\Youcode\\Desktop\\Nexus-api\\node_modules\\emittery\\index.js:361:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+      },
+      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\unit\\message.service.spec.ts",
+      "testResults": []
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1732091358419,
+        "runtime": 7356,
+        "slow": true,
+        "start": 1732091351063
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Youcode\\Desktop\\Nexus-api\\src\\tests\\unit\\app.controller.spec.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "AppController",
+            "root"
+          ],
+          "duration": 16,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "AppController root should return \"Hello World!\"",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "should return \"Hello World!\""
+        }
+      ],
+      "failureMessage": null
+    }
+  ],
+  "wasInterrupted": false
+}
