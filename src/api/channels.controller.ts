@@ -46,8 +46,8 @@ export class ChannelController {
     @Body() channelData: CreateChannelDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Channel> {
-    console.log('Incoming request body:', channelData); // Logs the body
-    console.log('Uploaded file:', file); // Logs the uploaded file
+    // console.log('Incoming request body:', channelData); // Logs the body
+    // console.log('Uploaded file:', file); // Logs the uploaded file
 
     if (!file) {
       throw new BadRequestException('Image file is required');
@@ -56,11 +56,6 @@ export class ChannelController {
     channelData['img'] = `/uploads/${file.filename}`;
     return this.channelService.createChannel(channelData);
   }
-
-
-
-
-
   @Get(':id')
   async getChannelById(@Param('id') id: string): Promise<Channel> {
     return this.channelService.getChannelById(new Types.ObjectId(id));
@@ -72,16 +67,39 @@ export class ChannelController {
   }
 
   @Patch('update/:id')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, callback) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          callback(null, `channel-${uniqueSuffix}${ext}`);
+        },
+      }),
+      fileFilter: (req, file, callback) => {
+        if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+          return callback(new Error('Only image files are allowed!'), false);
+        }
+        callback(null, true);
+      },
+    }),
+  )
+
   async updateChannel(
     @Param('id') id: string,
     @Body() updateData: UpdateChannelDto,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<Channel> {
     if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException('Invalid channel ID');
     }
+
     const objectId = new Types.ObjectId(id);
-    return this.channelService.updateChannel(objectId, updateData);
+    const imgPath = file ? `/uploads/${file.filename}` : undefined; 
+    return this.channelService.updateChannel(objectId, updateData, imgPath);
   }
+
 
   @Delete('delete/:id')
   async deleteChannel(@Param('id') id: string): Promise<{ deleted: boolean }> {

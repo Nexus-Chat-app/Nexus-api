@@ -39,17 +39,22 @@ export class ChannelService {
     return this.channelModel.find().exec();
   }
 
-  async updateChannel(id: Types.ObjectId, updateData: UpdateChannelDto): Promise<Channel> {
-    const updatedChannel = await this.channelModel
-      .findByIdAndUpdate(id, updateData, { new: true })
-      .exec();
-  
-    if (!updatedChannel) {
-      throw new NotFoundException(`Channel with ID ${id} not found`);
-    }
-  
-    return updatedChannel;
+  async updateChannel(id: Types.ObjectId, updateData: UpdateChannelDto, imgPath?: string): Promise<Channel> {
+  if (imgPath) {
+    updateData['img'] = imgPath; 
   }
+
+  const updatedChannel = await this.channelModel
+    .findByIdAndUpdate(id, updateData, { new: true })
+    .exec();
+
+  if (!updatedChannel) {
+    throw new NotFoundException(`Channel with ID ${id} not found`);
+  }
+
+  return updatedChannel;
+}
+
 
   async deleteChannel(id: Types.ObjectId): Promise<{ deleted: boolean }> {
     const result = await this.channelModel.findByIdAndDelete(id).exec();
