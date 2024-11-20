@@ -16,6 +16,15 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
+  // Méthode pour trouver un utilisateur par ID
+  async findOne(id: string): Promise<User> {
+    const user = await this.userModel.findById(id).exec();
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user;
+  }
+
   // user online avec websocket
   async setUserOnline(userId: string, isOnline: boolean): Promise<User> {
     const user = await this.userModel.findByIdAndUpdate(
@@ -49,14 +58,14 @@ export class UserService {
         _id: { $in: user.friends },
         isOnline: true,
       },
-      { username: 1, isOnline: 1 }, 
+      { username: 1, isOnline: 1 },
     );
 
     // Return the list of online friends
     if (onlineFriends.length > 0) {
-      return onlineFriends; 
+      return onlineFriends;
     } else {
-      return { message: 'No online friends found' }; 
+      return { message: 'No online friends found' };
     }
   }
 }
