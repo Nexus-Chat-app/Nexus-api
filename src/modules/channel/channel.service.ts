@@ -1,4 +1,4 @@
-import { ConflictException, ForbiddenException, Injectable, NotFoundException, } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Channel } from './channel.schema';
@@ -12,18 +12,17 @@ export class ChannelService {
   constructor(@InjectModel(Channel.name) private channelModel: Model<Channel>) { }
 
   async createChannel(channelData: CreateChannelDto): Promise<Channel> {
-
     const existingChannel = await this.channelModel.findOne({ name: channelData.name }).exec();
 
     if (existingChannel) {
       throw new ConflictException('Channel name already exists');
     }
+
     const channel = new this.channelModel({
       ...channelData,
-      owner: new Types.ObjectId(channelData.owner),
+      
+      owner: new Types.ObjectId(channelData.owner),  
     });
-    // console.log(channel);
-
 
     return channel.save();
   }
@@ -44,9 +43,11 @@ export class ChannelService {
     const updatedChannel = await this.channelModel
       .findByIdAndUpdate(id, updateData, { new: true })
       .exec();
+  
     if (!updatedChannel) {
       throw new NotFoundException(`Channel with ID ${id} not found`);
     }
+  
     return updatedChannel;
   }
 
@@ -79,7 +80,6 @@ export class ChannelService {
     ownerId: Types.ObjectId,
     userId: Types.ObjectId,
   ): Promise<Channel> {
-    
     const channel = await this.channelModel.findById(channelId).exec();
 
     if (!channel) {

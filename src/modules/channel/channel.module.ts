@@ -5,6 +5,7 @@ import { ChannelService } from './channel.service';
 import { ChannelSchema } from './channel.schema';
 import { ChannelController } from 'src/api/channels.controller';
 
+
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Channel', schema: ChannelSchema }])],
   providers: [ChannelService],

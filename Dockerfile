@@ -1,13 +1,15 @@
-FROM node:20-alpine
+FROM node:20.17.0
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-COPY . .
-
 RUN npm install
 
-EXPOSE 3001
+COPY . .
 
-CMD ["npm", "run", "dev"]
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start:prod"]

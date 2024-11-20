@@ -1,4 +1,4 @@
-import { IsBoolean, IsMongoId, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsBoolean } from 'class-validator';
 import { Types } from 'mongoose';
 
 export class UpdateChannelDto {
@@ -11,14 +11,6 @@ export class UpdateChannelDto {
   isPublic?: boolean;
 
   @IsOptional()
-  @IsMongoId()
-  owner?: Types.ObjectId;
-
-  @IsOptional()
-  @IsMongoId({ each: true })
-  admins?: Types.ObjectId[];
-
-  @IsOptional()
-  @IsMongoId({ each: true })
-  members?: Types.ObjectId[];
+  @IsString()
+  img?: string; 
 }

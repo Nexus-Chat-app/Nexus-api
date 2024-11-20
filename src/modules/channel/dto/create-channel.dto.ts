@@ -19,4 +19,9 @@ export class CreateChannelDto {
   @IsOptional()
   @IsMongoId({ each: true })
   members?: Types.ObjectId[];
+
+  @IsOptional()
+  @IsString()
+  img?: string;
+  
 }
