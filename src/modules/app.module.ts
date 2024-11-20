@@ -6,6 +6,8 @@ import { ChannelModule } from './channel/channel.module';
 import { ChatModule } from './chat/chat.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from 'src/common/middlewares/auth.middleware';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CorsInterceptor } from '../interceptors/cors.interceptor'; 
 
 
 @Module({
@@ -17,6 +19,12 @@ import { AuthMiddleware } from 'src/common/middlewares/auth.middleware';
     ChatModule,
     AuthModule,
   ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CorsInterceptor,
+    }
+  ]
 })
 
 export class AppModule implements NestModule{

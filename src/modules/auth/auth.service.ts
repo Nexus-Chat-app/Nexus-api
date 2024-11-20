@@ -84,15 +84,14 @@ export class AuthService {
       const response = await firstValueFrom(
         this.httpService.post(`${process.env.AUTH_SERVICE_URL}/login`, loginData)
       );
+      console.log('Login Data:', response);
 
       if (response.status === 200) {
-        // If device is trusted, return success response with user data and tokens
         return response.data;
       } else {
-        // If device is not trusted, return message indicating OTP has been sent
         return {
           message: 'OTP sent to your email. Please verify to complete login.',
-          user: response.data.user,  // Include user data to show username/email
+          user: response.data.user,  
         };
       }
     } catch (error) {
