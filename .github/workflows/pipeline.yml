@@ -71,14 +71,13 @@ jobs:
       - name: Deploy via SSH
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
-          set -e
-          echo "Pulling latest Docker image..."
-          docker pull ${{ secrets.DOCKER_USERNAME }}/nexus-api:latest
-          echo "Stopping existing container if running..."
-          docker stop nexus-api || true
-          echo "Removing old container if exists..."
-          docker rm nexus-api || true
-          echo "Running new container..."
-          docker run -d --name nexus-api -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/nexus-api:latest
-          echo "Deployment successful!"
+            echo "Pulling latest Docker image..."
+            docker pull ${{ secrets.DOCKER_USERNAME }}/nexus-api:latest
+            echo "Stopping existing container if running..."
+            docker stop nexus-api || true
+            echo "Removing old container if exists..."
+            docker rm nexus-api || true
+            echo "Running new container..."
+            docker run -d --name nexus-api -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/nexus-api:latest
+            echo "Deployment successful!"
           EOF
