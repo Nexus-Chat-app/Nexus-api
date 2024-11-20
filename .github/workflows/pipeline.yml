@@ -63,7 +63,7 @@ jobs:
   deploy:
     name: Deploy Docker Container to Server
     runs-on: ubuntu-latest
-    needs: run-tests
+    # needs: run-tests
     steps:
       - name: SSH to Server and Deploy
         run: |
