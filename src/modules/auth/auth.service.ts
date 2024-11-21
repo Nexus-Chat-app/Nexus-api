@@ -84,15 +84,14 @@ export class AuthService {
       const response = await firstValueFrom(
         this.httpService.post(`${process.env.AUTH_SERVICE_URL}/login`, loginData)
       );
+      console.log('Login Data:', response);
 
       if (response.status === 200) {
-        // If device is trusted, return success response with user data and tokens
         return response.data;
       } else {
-        // If device is not trusted, return message indicating OTP has been sent
         return {
           message: 'OTP sent to your email. Please verify to complete login.',
-          user: response.data.user,  // Include user data to show username/email
+          user: response.data.user,  
         };
       }
     } catch (error) {
@@ -149,18 +148,20 @@ export class AuthService {
       ? await bcrypt.hash(user.password, 10)
       : 'hashed-placeholder';
   
+    console.log('Syncing user to Chat Service database:', user);
+  
     const mappedUser = {
+      _id: user.id,
       username: user.username,
       email: user.email,
       phone: user.phoneNumber,
       password: hashedPassword,
     };
   
-  
     try {
       const newUser = new this.userModel(mappedUser);
-      await newUser.validate(); // Validate before saving
-      const result = await newUser.save();
+      await newUser.validate(); 
+      const result = await newUser.save(); 
       console.log('User synced to Chat Service database:', result);
       return result;
     } catch (error) {
@@ -168,6 +169,7 @@ export class AuthService {
       throw new Error(`Error syncing user to Chat DB: ${error.message}`);
     }
   }
+  
 
   // Get User Online
   async setUserOnlineStatus(userId: string): Promise<any> {

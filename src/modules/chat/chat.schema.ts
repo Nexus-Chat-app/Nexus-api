@@ -19,4 +19,5 @@ export class Chat extends Document {
   isRead: boolean;
 }
 
+export type ChatDocument = Chat & Document;
 export const ChatSchema = SchemaFactory.createForClass(Chat);
