@@ -1,3 +1,6 @@
+/* 
+    Group and private channels management
+*/
 import {
   Body,
   Controller,
@@ -22,7 +25,10 @@ import { UpdateChannelDto } from '../modules/channel/dto/update-channel.dto';
 @Controller('channels')
 export class ChannelController {
   constructor(private readonly channelService: ChannelService) { }
-
+  
+   /**
+   * Create a new channel
+   */
   @Post('create')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -46,8 +52,6 @@ export class ChannelController {
     @Body() channelData: CreateChannelDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Channel> {
-    // console.log('Incoming request body:', channelData); // Logs the body
-    // console.log('Uploaded file:', file); // Logs the uploaded file
 
     if (!file) {
       throw new BadRequestException('Image file is required');
@@ -65,7 +69,9 @@ export class ChannelController {
   async getAllChannels(): Promise<Channel[]> {
     return this.channelService.getAllChannels();
   }
-
+ /**
+   * Update an existing channel
+   */
   @Patch('update/:id')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -100,7 +106,9 @@ export class ChannelController {
     return this.channelService.updateChannel(objectId, updateData, imgPath);
   }
 
-
+ /**
+   * Delete a channel
+   */
   @Delete('delete/:id')
   async deleteChannel(@Param('id') id: string): Promise<{ deleted: boolean }> {
     if (!Types.ObjectId.isValid(id)) {
@@ -108,7 +116,11 @@ export class ChannelController {
     }
     return this.channelService.deleteChannel(new Types.ObjectId(id));
   }
-
+  
+  
+ /**
+   * Add members to a channel
+   */
   @Post(':channelId/add-member')
   async addMember(
     @Param('channelId') channelId: string,
@@ -121,7 +133,10 @@ export class ChannelController {
       new Types.ObjectId(userId),
     );
   }
-
+  
+ /**
+   * Delete members from channel
+   */
   @Delete(':channelId/remove-member')
   async removeMember(
     @Param('channelId') channelId: string,

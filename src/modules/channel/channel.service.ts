@@ -1,4 +1,9 @@
+/* 
+    This file is responsible for handling all the business logic of the channel module.
+    It contains all the methods that are required to perform CRUD operations on the channels.
+*/
 import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Channel } from './channel.schema';
@@ -8,7 +13,6 @@ import { log } from 'console';
 
 @Injectable()
 export class ChannelService {
-
   constructor(@InjectModel(Channel.name) private channelModel: Model<Channel>) { }
 
   async createChannel(channelData: CreateChannelDto): Promise<Channel> {
@@ -99,5 +103,4 @@ export class ChannelService {
     channel.members = channel.members.filter((member) => !member.equals(userId));
     return channel.save();
   }
-
 }
