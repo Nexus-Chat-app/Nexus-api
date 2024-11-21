@@ -4,16 +4,15 @@ import { Friend, FriendSchema } from "./friend.schema";
 import { FriendService } from "./friend.service";
 import { FriendController } from "../../api/friends.controller";
 import { FriendGateway } from "./friend.gateway";
-import { UserService } from "../user/user.service";
-import { User } from "../user/user.schema";
-import { UserModule } from "../user/user.module";
+import { AuthModule } from "../auth/auth.module";
+import { AuthService } from "../auth/auth.service";
 
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: Friend.name, schema: FriendSchema }]),
-        UserModule,
+        AuthModule,
     ],
-    providers: [FriendService, FriendGateway , UserService],
+    providers: [FriendService, FriendGateway],
     controllers: [FriendController],
     exports: [FriendService],
 })

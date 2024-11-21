@@ -7,11 +7,12 @@ import mongoose, { Model, ObjectId, Types } from "mongoose";
 import { Injectable, Scope, NotFoundException, BadRequestException } from "@nestjs/common";
 import { FriendDto } from 'src/dtos/friends.dto';
 import { User } from "../user/user.schema";
+import { AuthService } from "../auth/auth.service";
 
 
 @Injectable()
 export class FriendService {
-    constructor(@InjectModel(Friend.name) private friendmodel: Model<Friend> , @InjectModel("User") private readonly userModel: Model<User>,) { }
+    constructor(@InjectModel(Friend.name) private friendmodel: Model<Friend> ,private readonly authservice: AuthService ) { }
 
     async AddFriend(friendData: FriendDto): Promise<Friend> {
         try {

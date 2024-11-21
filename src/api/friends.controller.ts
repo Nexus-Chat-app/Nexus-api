@@ -6,16 +6,16 @@ import { Friend } from "../modules/friend/friend.schema";
 import { FriendService } from "../modules/friend/friend.service";
 import { FriendDto } from "../dtos/friends.dto";
 import { FriendGateway } from "../modules/friend/friend.gateway";
-// import { User } from "../modules/user/user.schema";
 import { UserService } from "../modules/user/user.service";
 import { User } from "../modules/user/user.schema";
+
 
 @Controller("api/Friend")
 export class FriendController {
     constructor(
         private readonly friendService: FriendService,
         private readonly friendGateway: FriendGateway,
-        private readonly userService: UserService
+        private readonly UserService: UserService
     ) {}
 
     @Get(":id")
@@ -47,10 +47,11 @@ export class FriendController {
     /* 
         Find user by username
     */
-    @Get("FindUser")
-    async FindUser(@Query("User") user: string): Promise<User[]> {
+
+    @Get("FindUser/:Username")
+    async FindUser(@Param("Username") Username: string): Promise<User[]> {
         try {
-            const Users = await this.userService.FindUser(user);
+            const Users = await this.UserService.FindUser(Username);
             return Users;
         } catch (error) {
             throw new BadRequestException(error.message);

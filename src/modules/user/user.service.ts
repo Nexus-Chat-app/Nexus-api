@@ -18,6 +18,7 @@ export class UserService {
 
   async FindUser(username: string): Promise<User[]> {
     try {
+        console.log("test 1 ");
         const users = await this.userModel.find({ username: { $regex: username, $options: 'i' } }).exec();
         if (!users || users.length === 0) {
             throw new NotFoundException('No users found.');

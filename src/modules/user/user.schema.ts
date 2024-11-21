@@ -20,6 +20,7 @@ export class User extends Document {
   
   @Prop({ default: false })
   isOnline: boolean;
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

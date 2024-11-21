@@ -6,6 +6,7 @@ import { ChannelModule } from './channel/channel.module';
 import { ChatModule } from './chat/chat.module';
 import { FriendModule } from './friend/friend.module';
 import { NotificationModule } from './notification/notification.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { NotificationModule } from './notification/notification.module';
     ChannelModule,
     ChatModule,
     FriendModule,
-    NotificationModule
+    NotificationModule,
+    AuthModule,
   ],
 })
 
