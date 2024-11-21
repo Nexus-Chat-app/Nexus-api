@@ -48,8 +48,8 @@ export class FriendController {
         Find user by username
     */
 
-    @Get("FindUser/:Username")
-    async FindUser(@Param("Username") Username: string): Promise<User[]> {
+    @Post("FindUser")
+    async FindUser(@Body("Username") Username: string): Promise<User[]> {
         try {
             const Users = await this.UserService.FindUser(Username);
             return Users;
