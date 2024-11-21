@@ -2,49 +2,105 @@
     This file is responsible for handling all the business logic of the channel module.
     It contains all the methods that are required to perform CRUD operations on the channels.
 */
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Channel } from './channel.schema';
-import { User } from '../user/user.schema';
-
+import { CreateChannelDto } from './dto/create-channel.dto';
+import { UpdateChannelDto } from './dto/update-channel.dto';
+import { log } from 'console';
 
 @Injectable()
 export class ChannelService {
-  constructor(
-    @InjectModel(Channel.name) private channelModel: Model<Channel>,
-    @InjectModel(User.name) private userModel: Model<User>,
-  ) {}
+  constructor(@InjectModel(Channel.name) private channelModel: Model<Channel>) { }
 
-  async createChannel(channelData: Partial<Channel>): Promise<Channel> {
-    const channel = new this.channelModel(channelData);
+  async createChannel(channelData: CreateChannelDto): Promise<Channel> {
+    const existingChannel = await this.channelModel.findOne({ name: channelData.name }).exec();
+
+    if (existingChannel) {
+      throw new ConflictException('Channel name already exists');
+    }
+
+    const channel = new this.channelModel({
+      ...channelData,
+      
+      owner: new Types.ObjectId(channelData.owner),  
+    });
+
     return channel.save();
   }
 
-  async getOnlineMembers(channelId: string): Promise<User[]> {
-    // Fetch channel details
-    const channel = await this.channelModel
-      .findById(channelId)
-      .populate('members')
-      .exec();
+  async getChannelById(id: Types.ObjectId): Promise<Channel> {
+    const channel = await this.channelModel.findById(id).exec();
     if (!channel) {
-      throw new NotFoundException('Channel not found');
+      throw new NotFoundException(`Channel with ID ${id} not found`);
     }
-
-    // Fetch online members from the channel's members list
-    const onlineMembers = await this.userModel.find({
-      _id: { $in: channel.members },
-      isOnline: true, // Check the online status
-    });
-
-    return onlineMembers;
+    return channel;
   }
 
-  async findAllChannels(): Promise<Channel[]> {
-    try {
-      return this.channelModel.find().populate('members').exec();
-    } catch (error) {
-      throw new Error('Error fetching channels');
+  async getAllChannels(): Promise<Channel[]> {
+    return this.channelModel.find().exec();
+  }
+
+  async updateChannel(id: Types.ObjectId, updateData: UpdateChannelDto, imgPath?: string): Promise<Channel> {
+  if (imgPath) {
+    updateData['img'] = imgPath; 
+  }
+
+  const updatedChannel = await this.channelModel
+    .findByIdAndUpdate(id, updateData, { new: true })
+    .exec();
+
+  if (!updatedChannel) {
+    throw new NotFoundException(`Channel with ID ${id} not found`);
+  }
+
+  return updatedChannel;
+}
+
+
+  async deleteChannel(id: Types.ObjectId): Promise<{ deleted: boolean }> {
+    const result = await this.channelModel.findByIdAndDelete(id).exec();
+
+    if (!result) {
+      throw new NotFoundException(`Channel with ID ${id} not found`);
     }
+    return { deleted: true };
+  }
+
+  async addMember(channelId: Types.ObjectId, ownerId: Types.ObjectId, userId: Types.ObjectId): Promise<Channel> {
+    const channel = await this.channelModel.findById(channelId).exec();
+    if (!channel) {
+      throw new NotFoundException(`Channel with ID ${channelId} not found`);
+    }
+    if (!channel.owner.equals(ownerId)) {
+      throw new ForbiddenException('Only the owner can add members to this channel');
+    }
+    if (channel.members.includes(userId)) {
+      throw new ConflictException('User is already a member of the channel');
+    }
+    channel.members.push(userId);
+    return channel.save();
+  }
+
+  async removeMember(
+    channelId: Types.ObjectId,
+    ownerId: Types.ObjectId,
+    userId: Types.ObjectId,
+  ): Promise<Channel> {
+    const channel = await this.channelModel.findById(channelId).exec();
+
+    if (!channel) {
+      throw new NotFoundException(`Channel with ID ${channelId} not found`);
+    }
+    if (!channel.owner.equals(ownerId)) {
+      throw new ForbiddenException('Only the owner can remove members from this channel');
+    }
+    if (!channel.members.includes(userId)) {
+      throw new NotFoundException('User is not a member of this channel');
+    }
+    channel.members = channel.members.filter((member) => !member.equals(userId));
+    return channel.save();
   }
 }
