@@ -11,6 +11,5 @@ export const DatabaseConfig = MongooseModule.forRootAsync({
     // uri: configService.get<string>('DB_URI_ATLAS'),
     uri: configService.get<string>('DB_URI'),
   }),
-
   inject: [ConfigService],
 });

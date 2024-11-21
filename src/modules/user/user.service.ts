@@ -1,3 +1,4 @@
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -16,6 +17,18 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
+  async FindUser(username: string): Promise<User[]> {
+    try {
+        const users = await this.userModel.find({ username: { $regex: username, $options: 'i' } }).exec();
+        if (!users || users.length === 0) {
+            throw new NotFoundException('No users found.');
+        }
+        return users;
+    } catch (error) {
+        throw new BadRequestException(error.message);
+    }
+  }
+}
   // Méthode pour trouver un utilisateur par ID
   async findOne(id: string): Promise<User> {
     const user = await this.userModel.findById(id).exec();
