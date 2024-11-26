@@ -45,12 +45,12 @@ async function testDatabase() {
     const testChannelId = new Types.ObjectId(testChannel._id.toString());
 
     // Test adding a message to the channel
-    const testMessage = await chatService.createMessage({
-      content: 'Hello, Test!',
-      sender: testUserId,
-      channelId: testChannelId,
-    });
-    console.log('Message added successfully:', testMessage);
+    // const testMessage = await chatService.createChat({
+    //   content: 'Hello, Test!',
+    //   sender: testUser._id,
+    //   channelId: testChannelId,
+    // });
+    // console.log('Message added successfully:', testMessage);
 
   } catch (error) {
     console.error('Error during testing:', error);

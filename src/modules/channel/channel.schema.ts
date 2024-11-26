@@ -17,6 +17,10 @@ export class Channel extends Document {
 
   @Prop({ type: [Types.ObjectId], ref: 'User', default: [] })
   members: Types.ObjectId[];
+
+  @Prop({ type: String, default: null }) 
+  img: string | null;
 }
+
 
 export const ChannelSchema = SchemaFactory.createForClass(Channel);

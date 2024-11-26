@@ -12,10 +12,12 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "typeRoots": ["./node_modules/@types", "./types"],
   }
 }
